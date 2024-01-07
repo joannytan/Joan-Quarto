@@ -3,7 +3,9 @@ project:
   output-dir: docs
 
 website:
+  open-graph: true
   title: "Joan Tan"
+  favicon: images/joanicon.png
   navbar:
     left:
       - href: index.qmd
@@ -12,8 +14,10 @@ website:
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: minty
+    css: styles.scss
     toc: true
+    page-layout: full
+    mainfont: Nunito
 
 editor: visual
