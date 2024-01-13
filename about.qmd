@@ -1,9 +1,17 @@
 ---
-title: "About"
+title: "Who is Joan?"
+subtitle: "~Know me better~"
+title-block-banner: true
 ---
 
-About this site
+## {{< fa person-chalkboard title="explain" >}} My Profession
 
-```{r}
-1 + 1
-```
+I'm the educator/practitioner who is passionate about data science and teaching. I have been teaching data science courses for the past 12 years. I have taught over thousands of students. I have taught students from different backgrounds and different levels in different countries.
+
+My background is in applied statistics -- I was fortunate enough to study my PhD degree in Australia under the sponsorship.
+
+I have been working in both the banking and education industry. Both are very fascinating and challenging. In reality, the practical side of statistics is very different from the theoretical side. I constantly need to learn new things and keep up with the latest technology. I am very fortunate to have the opportunity to work in both industries.
+
+## {{< fa cake-candles title="baking" >}} My Passion
+
+I love baking! I love to experiment with new recipes and share my creations with friends and family. I also enjoy reading productivity books, which I find inspiring and motivating. Apart from this, I am quite a boring person in which I do not socialize much. I prefer to stay at home and do my own things with a cup of hot chocolate. Socialize consumes much of my energy and I feel wear out after that. I have came across minimalist idea in the recent years and I am trying to live a minimalist life, which is really hard for me. I am still learning and trying to adapt to this new lifestyle as I love to shop. Unfortunately, shopping and minimalist are two very contradicting ideas and I am still trying to find a balance between these two ideas.

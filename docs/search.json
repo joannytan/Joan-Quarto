@@ -2,14 +2,14 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Who is Joan?",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "I’m the educator/practitioner who is passionate about data science and teaching. I have been teaching data science courses for the past 12 years. I have taught over thousands of students. I have taught students from different backgrounds and different levels in different countries.\nMy background is in applied statistics – I was fortunate enough to study my PhD degree in Australia under the sponsorship.\nI have been working in both the banking and education industry. Both are very fascinating and challenging. In reality, the practical side of statistics is very different from the theoretical side. I constantly need to learn new things and keep up with the latest technology. I am very fortunate to have the opportunity to work in both industries."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Joan Tan",
+    "title": "Dr. Joan Tan",
     "section": "",
     "text": "Hello, I am Joan, a passionate data analyst who is dedicated to exploring the world of data and discovering insights that can drive positive change. I have always been fascinated by the power of data to tell stories and reveal patterns. I love nothing more than diving into complex data sets and using the skill in programming, statistics, and machine learning to extract meaningful insights. I hope to inspire others to embrace the power of data and use it to make a difference to your career.\nWhen I aren’t busy exploring the world of data science, I enjoy spending my free time pursuing other passions. I love Baking! I loves nothing more than experimenting with new recipes and sharing my creations with friends and family. I also enjoy reading productivity books, which I find inspiring and motivating. I believes that by learning from the experiences of others and adopting new strategies for managing time and staying focused, I can be more effective in all aspects of my life. Whether I am in the kitchen or curies up with a good book, I always seeking new ways to challenge myself and grow as a person."
   },
@@ -19,5 +19,54 @@
     "title": "Publication",
     "section": "",
     "text": "Ha, J., Tan, P.P., & Goh, K.L. (2018). Linear and nonlinear causal relationship between energy consumption and economic growth in China: New evidence based on wavelet analysis. PLoS ONE 13 (5): e0197785. https://doi.org/10.1371/journal. pone.0197785\nChin, W.C., Lee, M.C., and Tan, P.P. (2016), Heterogeneous Market Hypothesis Evaluation using Multipower Variation Volatility, Communications in Statistics-Simulation and Computation, pp. 1-14, published online on 19 Aug 2016.\nChin, W.C., Lee, M.C., and Tan, P.P., Lee, C. Y., and Tan, N. L. (2016), Dynamic Long Memory High Frequency Multipower Variation Volatility Evaluations for S&P 500, Modern Applied Science, Vol 10, Issue 5.\nTan, P.P., Galagedera, D.U.A., and Ting, S.S. (2015), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, 52(2), pp. 135-156.\nTan, P.P., and Galagedera, D.U.A. (2015), Dynamics of Idiosyncratic Volatility: an Emerging Market Perspective, Global Economic Review, Vol 44, Issue 1, pp. 74-100.\nTang, T.C., and Tan, P.P. (2015), Real Interest Rate and House Prices in Malaysia: An Empirical Study, Economics Bulletin, Vol 35, Issue 1, pp. 270-275.\nChin, W. C., I. Zaidi, Tan, P. P. and Lee, M. C. (2015), The Computation of High Frequency S&P 500 Long-range Dependence Volatility Using Dynamic Modified Rescaled Adjusted Range Approach, Applied Mathematical Sciences, Vol 9, pp. 5915- 5924.\nLiau, B.Y. and Tan, P.P. (2014), Gaining Customer Knowledge in Low Cost Airlines Through Text Mining. Industrial Management & Data System, Vol 114, Issue 9, pp. 1344-1359.\nTan, P.P., Chin, W.C. and Galagedera, D.U.A. (2014), A Wavelet-Based Evaluation of Time-Varying Long Memory of Equity Markets: A Paradigm in Crisis. Physica A: Statistical Mechanics and its Applications, Vol 410, pp. 345-358.\nTan, P.P., Galagedera, D.U.A. and Ting, S.S. (2014), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, Volume 52, Issue 2, pp. 135-156.\nTan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2012), A Wavelet Based Investigation of Long Memory in Stock Returns, Physica A: Statistical Mechanics and its Applications Netherlands, Vol 391, Issue 7, pp. 2330-2341.\nTan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2011), Are Asia-Pacific Stock Markets Predictable? Evidence from Wavelet-based Fractional Integration Estimator, World Academy of Science, Engineering and Technology 59, pp. 1921-1926.\nTan, P. P. and Goh K.L. (2009), Structural Breaks in the Interest Rate of Selected East-Asian Countries, International Journal of Applied Business and Economic Research, Vol 7, Issue 2, pp. 97-105.\n\nAcademic Supervision\nDoctoral Degree (PhD), Ha Junsheng, Energy Industry with Wavelet application, 2013/2014 (Completed)\nMasters Degree, Lim Zhen Wen, The Great Gatsby Curve: Education and Income Inequality across Generations, 2014/2015 (Completed)\nMasters Degree, Liau Bee Yee, Text Mining for Low Cost Airlines in Malaysia, 2013/2014 (Completed)\nMasters Degree, Lim Thiam Sang, Dynamic Automobile Insurance Pricing in Malaysia: A Generalized Linear Model Approach, 2013/2014 (Completed)"
+  },
+  {
+    "objectID": "R.html",
+    "href": "R.html",
+    "title": "R",
+    "section": "",
+    "text": "What is functional programming (Part I)\n\n\n\n\n\n\n\nR\n\n\nadvanced\n\n\n\n\nblog post description (appears underneath the title in smaller text) which is included on the listing page\n\n\n\n\n\n\nJan 14, 2024\n\n\nJoan Tan\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "Statistics.html",
+    "href": "Statistics.html",
+    "title": "Statistics",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "Python.html",
+    "href": "Python.html",
+    "title": "Python",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "Rposts/2024-01-14-functional-programming/index.html",
+    "href": "Rposts/2024-01-14-functional-programming/index.html",
+    "title": "What is functional programming (Part I)",
+    "section": "",
+    "text": "It actually took me a while to understand what functional programming is. So to give it a good start without getting too technical, I will start with a simple example.\nFunctional programming is like using a microwave. You put something in, press a button, and get something out. You don’t need to know how it works—the microwave takes care of that for you. You just need to know what buttons to press. This is the essence of functional programming. Whatever matters in this context is the ingredients of the food (data and input for the function) that you put together and place it inside the microwave, the function of the microwave that you choose (function(s)). The output is the dish that you get (output of the function). In an essence, you need input, function, and output."
+  },
+  {
+    "objectID": "Rposts/2024-01-14-functional-programming/index.html#what-is-a-function",
+    "href": "Rposts/2024-01-14-functional-programming/index.html#what-is-a-function",
+    "title": "What is functional programming (Part I)",
+    "section": "What is a function?",
+    "text": "What is a function?\nA function is a block of code that performs a specific task. It takes in some input, performs some processing, and produces some output. A function is a self-contained block of code that encapsulates a specific task or related group of tasks. Functions usually “do” something, and they usually “return” something. The “something” that a function returns is called its return value. A function can have\n\nzero or more parameters. Parameters are inputs to the function;\nzero or more return values. Return values are outputs from the function.\n\nzero or more side effects. Side effects are outputs from the function that are not return values.\n\nR as a functional programming language, does not require you to write pure functions. A pure function is a function that has no side effects and always returns the same output for the same input. Imagine if you would like to generate random number from the function, then it is not a pure function. However, it is still a function.\n\n\n\n\n\n\nHadley Wickham\n\n\n\nA functional is a function that takes a function as an input and returns a vector as output.\n\n\nThe function that is passed in as an input is called a function argument. The function that is returned as an output is called a function output. There are lots of examples of functionals can be found in purrr package. For example, map() is a functional that takes a function as an input and returns a vector as output.\nFor simple illustration, let’s focus on the map() function.\n\nlibrary(purrr)\n\n\nsquare &lt;- function(x) x^2\nmap(1:3, square)\n\n[[1]]\n[1] 1\n\n[[2]]\n[1] 4\n\n[[3]]\n[1] 9\n\n\nExplanation\n\nFirst, a square function is created.\n\nSecond, the map() function is called.\n\nThen, the first argument is a vector of 1 to 3. The second argument is the square function.\nThe map() function takes the square function as an input and returns a vector as output.\nThe map() function applies the square function to each element of the vector of 1 to 3.\nSo, it takes 1 and returns 1^2, then it takes 2 and returns 2^2, and so on.\nFinally, the map() function returns a vector of 1, 4, and 9 after it run the square function on each element of the vector of 1 to 3.\n\nSo let’s stop here and have a grasp on the concept of functional programming, before we explore more of this type of functions. To be continued…\nTo read more about functional programming, please visit Hadley Wickham’s Advanced R book, chapter 9 to 11."
+  },
+  {
+    "objectID": "about.html#fa-person-chalkboard-titleexplain-my-profession",
+    "href": "about.html#fa-person-chalkboard-titleexplain-my-profession",
+    "title": "Who is Joan?",
+    "section": "",
+    "text": "I’m the educator/practitioner who is passionate about data science and teaching. I have been teaching data science courses for the past 12 years. I have taught over thousands of students. I have taught students from different backgrounds and different levels in different countries.\nMy background is in applied statistics – I was fortunate enough to study my PhD degree in Australia under the sponsorship.\nI have been working in both the banking and education industry. Both are very fascinating and challenging. In reality, the practical side of statistics is very different from the theoretical side. I constantly need to learn new things and keep up with the latest technology. I am very fortunate to have the opportunity to work in both industries."
+  },
+  {
+    "objectID": "about.html#fa-cake-candles-titlebaking-my-passion",
+    "href": "about.html#fa-cake-candles-titlebaking-my-passion",
+    "title": "Who is Joan?",
+    "section": " My Passion",
+    "text": "My Passion\nI love baking! I love to experiment with new recipes and share my creations with friends and family. I also enjoy reading productivity books, which I find inspiring and motivating. Apart from this, I am quite a boring person in which I do not socialize much. I prefer to stay at home and do my own things with a cup of hot chocolate. Socialize consumes much of my energy and I feel wear out after that. I have came across minimalist idea in the recent years and I am trying to live a minimalist life, which is really hard for me. I am still learning and trying to adapt to this new lifestyle as I love to shop. Unfortunately, shopping and minimalist are two very contradicting ideas and I am still trying to find a balance between these two ideas."
   }
 ]

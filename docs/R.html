@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr.&nbsp;Joan Tan - Publication</title>
+<title>Dr.&nbsp;Joan Tan - R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./images/joanicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -60,6 +62,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-D2D80R1TVV"></script>
 
 <script type="text/javascript">
@@ -70,9 +101,12 @@ gtag('js', new Date());
 gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="Dr.&nbsp;Joan Tan - Publication">
-<meta property="og:description" content="">
+<meta property="og:title" content="Dr.&nbsp;Joan Tan - R">
+<meta property="og:description" content="Many people tend to look at programming styles and languages like religions: if you belong to one, you cannot belong to others. But this analogy is another fallacy. (Niklaus Wirth)">
+<meta property="og:image" content="https://joantan.org/Rposts/2024-01-14-functional-programming/functionalprogramming.jpg">
 <meta property="og:site-name" content="Dr. Joan Tan">
 </head>
 
@@ -105,7 +139,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./R.html" rel="" target="">
+    <a class="nav-link active" href="./R.html" rel="" target="" aria-current="page">
  <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item">
@@ -121,7 +155,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
  <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./publication.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./publication.html" rel="" target="">
  <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item compact">
@@ -150,7 +184,8 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Publication</h1>
+      <h1 class="title">R</h1>
+            <p class="subtitle lead">Many people tend to look at programming styles and languages like religions: if you belong to one, you cannot belong to others. But this analogy is another fallacy. (Niklaus Wirth)</p>
                       </div>
   </div>
     
@@ -167,44 +202,65 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#academic-supervision" id="toc-academic-supervision" class="nav-link active" data-scroll-target="#academic-supervision">Academic Supervision</a></li>
-  </ul>
-</nav>
-    </div>
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="advanced">advanced <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
-<p>Ha, J., Tan, P.P., &amp; Goh, K.L. (2018). Linear and nonlinear causal relationship between energy consumption and economic growth in China: New evidence based on wavelet analysis. PLoS ONE 13 (5): e0197785. <a href="https://doi.org/10.1371/journal" class="uri">https://doi.org/10.1371/journal</a>. pone.0197785</p>
-<p>Chin, W.C., Lee, M.C., and Tan, P.P. (2016), Heterogeneous Market Hypothesis Evaluation using Multipower Variation Volatility, Communications in Statistics-Simulation and Computation, pp.&nbsp;1-14, published online on 19 Aug 2016.</p>
-<p>Chin, W.C., Lee, M.C., and Tan, P.P., Lee, C. Y., and Tan, N. L. (2016), Dynamic Long Memory High Frequency Multipower Variation Volatility Evaluations for S&amp;P 500, Modern Applied Science, Vol 10, Issue 5.</p>
-<p>Tan, P.P., Galagedera, D.U.A., and Ting, S.S. (2015), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, 52(2), pp.&nbsp;135-156.</p>
-<p>Tan, P.P., and Galagedera, D.U.A. (2015), Dynamics of Idiosyncratic Volatility: an Emerging Market Perspective, Global Economic Review, Vol 44, Issue 1, pp.&nbsp;74-100.</p>
-<p>Tang, T.C., and Tan, P.P. (2015), Real Interest Rate and House Prices in Malaysia: An Empirical Study, Economics Bulletin, Vol 35, Issue 1, pp.&nbsp;270-275.</p>
-<p>Chin, W. C., I. Zaidi, Tan, P. P. and Lee, M. C. (2015), The Computation of High Frequency S&amp;P 500 Long-range Dependence Volatility Using Dynamic Modified Rescaled Adjusted Range Approach, Applied Mathematical Sciences, Vol 9, pp.&nbsp;5915- 5924.</p>
-<p>Liau, B.Y. and Tan, P.P. (2014), Gaining Customer Knowledge in Low Cost Airlines Through Text Mining. Industrial Management &amp; Data System, Vol 114, Issue 9, pp.&nbsp;1344-1359.</p>
-<p>Tan, P.P., Chin, W.C. and Galagedera, D.U.A. (2014), A Wavelet-Based Evaluation of Time-Varying Long Memory of Equity Markets: A Paradigm in Crisis. Physica A: Statistical Mechanics and its Applications, Vol 410, pp.&nbsp;345-358.</p>
-<p>Tan, P.P., Galagedera, D.U.A. and Ting, S.S. (2014), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, Volume 52, Issue 2, pp.&nbsp;135-156.</p>
-<p>Tan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2012), A Wavelet Based Investigation of Long Memory in Stock Returns, Physica A: Statistical Mechanics and its Applications Netherlands, Vol 391, Issue 7, pp.&nbsp;2330-2341.</p>
-<p>Tan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2011), Are Asia-Pacific Stock Markets Predictable? Evidence from Wavelet-based Fractional Integration Estimator, World Academy of Science, Engineering and Technology 59, pp.&nbsp;1921-1926.</p>
-<p>Tan, P. P. and Goh K.L. (2009), Structural Breaks in the Interest Rate of Selected East-Asian Countries, International Journal of Applied Business and Economic Research, Vol 7, Issue 2, pp.&nbsp;97-105.</p>
-<section id="academic-supervision" class="level1">
-<h1>Academic Supervision</h1>
-<p>Doctoral Degree (PhD), Ha Junsheng, Energy Industry with Wavelet application, 2013/2014 (Completed)</p>
-<p>Masters Degree, Lim Zhen Wen, The Great Gatsby Curve: Education and Income Inequality across Generations, 2014/2015 (Completed)</p>
-<p>Masters Degree, Liau Bee Yee, Text Mining for Low Cost Airlines in Malaysia, 2013/2014 (Completed)</p>
-<p>Masters Degree, Lim Thiam Sang, Dynamic Automobile Insurance Pricing in Malaysia: A Generalized Linear Model Approach, 2013/2014 (Completed)</p>
+<hr>
+<hr>
 
 
-</section>
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="R,advanced" data-listing-date-sort="1705150800000" data-listing-file-modified-sort="1705188541666" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="thumbnail">
+<p><a href="./Rposts/2024-01-14-functional-programming/index.html"> <img src="./Rposts/2024-01-14-functional-programming/functionalprogramming.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Rposts/2024-01-14-functional-programming/index.html">
+<h3 class="no-anchor listing-title">
+What is functional programming (Part I)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('advanced'); return false;">
+advanced
+</div>
+</div>
+<a href="./Rposts/2024-01-14-functional-programming/index.html">
+<div class="listing-description">
+<p>blog post description (appears underneath the title in smaller text) which is included on the listing page</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Rposts/2024-01-14-functional-programming/index.html">
+<div class="listing-date">
+Jan 14, 2024
+</div>
+<div class="listing-author">
+Joan Tan
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -441,7 +497,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2024, Dr.&nbsp;Joan Tan</div>   
+    <div class="nav-footer-left">Copyright 2024, Joan Tan</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

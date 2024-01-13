@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Joan Tan">
+<meta name="dcterms.date" content="2024-01-14">
+<meta name="description" content="blog post description (appears underneath the title in smaller text) which is included on the listing page">
 
-<title>Dr.&nbsp;Joan Tan - Publication</title>
+<title>Dr.&nbsp;Joan Tan - What is functional programming (Part I)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +23,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/joanicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/joanicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,8 +108,9 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 </script>
 
 
-<meta property="og:title" content="Dr.&nbsp;Joan Tan - Publication">
-<meta property="og:description" content="">
+<meta property="og:title" content="Dr.&nbsp;Joan Tan - What is functional programming (Part I)">
+<meta property="og:description" content="blog post description (appears underneath the title in smaller text) which is included on the listing page">
+<meta property="og:image" content="https://joantan.org/Rposts/2024-01-14-functional-programming/functionalprogramming.jpg">
 <meta property="og:site-name" content="Dr. Joan Tan">
 </head>
 
@@ -83,10 +121,10 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/joanicon.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/joanicon.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Dr.&nbsp;Joan Tan</span>
     </a>
   </div>
@@ -97,31 +135,31 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./R.html" rel="" target="">
+    <a class="nav-link" href="../../R.html" rel="" target="">
  <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Python.html" rel="" target="">
+    <a class="nav-link" href="../../Python.html" rel="" target="">
  <span class="menu-text">Python</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Statistics.html" rel="" target="">
+    <a class="nav-link" href="../../Statistics.html" rel="" target="">
  <span class="menu-text">Statistics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Resources.html" rel="" target="">
+    <a class="nav-link" href="../../Resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./publication.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../publication.html" rel="" target="">
  <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item compact">
@@ -150,14 +188,44 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Publication</h1>
-                      </div>
+      <h1 class="title">What is functional programming (Part I)</h1>
+                  <div>
+        <div class="description">
+          blog post description (appears underneath the title in smaller text) which is included on the listing page
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">advanced</div>
+              </div>
+                  </div>
   </div>
     
-  
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://joantan.org/">Joan Tan</a> <a href="https://orcid.org/0000-0001-6374-1568" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://www.monash.edu/business/econometrics-and-business-statistics/">
+              Department of Econometrics and Business Statistics, Monash University
+              </a>
+            </p>
+        </div>
+      </div>
+
   <div class="quarto-title-meta">
 
-      
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 14, 2024</p>
+      </div>
+    </div>
     
       
     </div>
@@ -171,7 +239,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#academic-supervision" id="toc-academic-supervision" class="nav-link active" data-scroll-target="#academic-supervision">Academic Supervision</a></li>
+  <li><a href="#what-is-a-function" id="toc-what-is-a-function" class="nav-link active" data-scroll-target="#what-is-a-function">What is a function?</a></li>
   </ul>
 </nav>
     </div>
@@ -181,30 +249,79 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 
 
 
-<p>Ha, J., Tan, P.P., &amp; Goh, K.L. (2018). Linear and nonlinear causal relationship between energy consumption and economic growth in China: New evidence based on wavelet analysis. PLoS ONE 13 (5): e0197785. <a href="https://doi.org/10.1371/journal" class="uri">https://doi.org/10.1371/journal</a>. pone.0197785</p>
-<p>Chin, W.C., Lee, M.C., and Tan, P.P. (2016), Heterogeneous Market Hypothesis Evaluation using Multipower Variation Volatility, Communications in Statistics-Simulation and Computation, pp.&nbsp;1-14, published online on 19 Aug 2016.</p>
-<p>Chin, W.C., Lee, M.C., and Tan, P.P., Lee, C. Y., and Tan, N. L. (2016), Dynamic Long Memory High Frequency Multipower Variation Volatility Evaluations for S&amp;P 500, Modern Applied Science, Vol 10, Issue 5.</p>
-<p>Tan, P.P., Galagedera, D.U.A., and Ting, S.S. (2015), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, 52(2), pp.&nbsp;135-156.</p>
-<p>Tan, P.P., and Galagedera, D.U.A. (2015), Dynamics of Idiosyncratic Volatility: an Emerging Market Perspective, Global Economic Review, Vol 44, Issue 1, pp.&nbsp;74-100.</p>
-<p>Tang, T.C., and Tan, P.P. (2015), Real Interest Rate and House Prices in Malaysia: An Empirical Study, Economics Bulletin, Vol 35, Issue 1, pp.&nbsp;270-275.</p>
-<p>Chin, W. C., I. Zaidi, Tan, P. P. and Lee, M. C. (2015), The Computation of High Frequency S&amp;P 500 Long-range Dependence Volatility Using Dynamic Modified Rescaled Adjusted Range Approach, Applied Mathematical Sciences, Vol 9, pp.&nbsp;5915- 5924.</p>
-<p>Liau, B.Y. and Tan, P.P. (2014), Gaining Customer Knowledge in Low Cost Airlines Through Text Mining. Industrial Management &amp; Data System, Vol 114, Issue 9, pp.&nbsp;1344-1359.</p>
-<p>Tan, P.P., Chin, W.C. and Galagedera, D.U.A. (2014), A Wavelet-Based Evaluation of Time-Varying Long Memory of Equity Markets: A Paradigm in Crisis. Physica A: Statistical Mechanics and its Applications, Vol 410, pp.&nbsp;345-358.</p>
-<p>Tan, P.P., Galagedera, D.U.A. and Ting, S.S. (2014), Modelling Price Movement in Trading Volume-Volatility Relation, Malaysian Journal of Economic Studies, Volume 52, Issue 2, pp.&nbsp;135-156.</p>
-<p>Tan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2012), A Wavelet Based Investigation of Long Memory in Stock Returns, Physica A: Statistical Mechanics and its Applications Netherlands, Vol 391, Issue 7, pp.&nbsp;2330-2341.</p>
-<p>Tan, P.P, Galagedera, D.U.A, Maharaj, E. A. (2011), Are Asia-Pacific Stock Markets Predictable? Evidence from Wavelet-based Fractional Integration Estimator, World Academy of Science, Engineering and Technology 59, pp.&nbsp;1921-1926.</p>
-<p>Tan, P. P. and Goh K.L. (2009), Structural Breaks in the Interest Rate of Selected East-Asian Countries, International Journal of Applied Business and Economic Research, Vol 7, Issue 2, pp.&nbsp;97-105.</p>
-<section id="academic-supervision" class="level1">
-<h1>Academic Supervision</h1>
-<p>Doctoral Degree (PhD), Ha Junsheng, Energy Industry with Wavelet application, 2013/2014 (Completed)</p>
-<p>Masters Degree, Lim Zhen Wen, The Great Gatsby Curve: Education and Income Inequality across Generations, 2014/2015 (Completed)</p>
-<p>Masters Degree, Liau Bee Yee, Text Mining for Low Cost Airlines in Malaysia, 2013/2014 (Completed)</p>
-<p>Masters Degree, Lim Thiam Sang, Dynamic Automobile Insurance Pricing in Malaysia: A Generalized Linear Model Approach, 2013/2014 (Completed)</p>
+<p>It actually took me a while to understand what functional programming is. So to give it a good start without getting too technical, I will start with a simple example.</p>
+<p>Functional programming is like using a microwave. You put something in, press a button, and get something out. You don’t need to know how it works—the microwave takes care of that for you. You just need to know what buttons to press. This is the essence of functional programming. Whatever matters in this context is the ingredients of the food (data and input for the function) that you put together and place it inside the microwave, the function of the microwave that you choose (function(s)). The output is the dish that you get (output of the function). In an essence, you need input, function, and output.</p>
+<section id="what-is-a-function" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-function">What is a function?</h2>
+<p>A function is a block of code that performs a specific task. It takes in some input, performs some processing, and produces some output. A function is a self-contained block of code that encapsulates a specific task or related group of tasks. Functions usually “do” something, and they usually “return” something. The “something” that a function returns is called its return value. A function can have</p>
+<ul>
+<li>zero or more parameters. Parameters are inputs to the function;</li>
+<li>zero or more return values. Return values are outputs from the function.<br>
+</li>
+<li>zero or more side effects. Side effects are outputs from the function that are not return values.</li>
+</ul>
+<p>R as a functional programming language, does not require you to write pure functions. A pure function is a function that has no side effects and always returns the same output for the same input. Imagine if you would like to generate random number from the function, then it is not a pure function. However, it is still a function.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hadley Wickham
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A functional is a function that takes a function as an input and returns a vector as output.</p>
+</div>
+</div>
+<p>The function that is passed in as an input is called a function argument. The function that is returned as an output is called a function output. There are lots of examples of functionals can be found in <code>purrr</code> package. For example, <code>map()</code> is a functional that takes a function as an input and returns a vector as output.</p>
+<p>For simple illustration, let’s focus on the <code>map()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, square)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 4
+
+[[3]]
+[1] 9</code></pre>
+</div>
+</div>
+<p><strong>Explanation</strong></p>
+<ul>
+<li>First, a <code>square</code> function is created.<br>
+</li>
+<li>Second, the <code>map()</code> function is called.<br>
+</li>
+<li>Then, the first argument is a vector of 1 to 3. The second argument is the <code>square</code> function.</li>
+<li>The <code>map()</code> function takes the <code>square</code> function as an input and returns a vector as output.</li>
+<li>The <code>map()</code> function applies the <code>square</code> function to each element of the vector of 1 to 3.</li>
+<li>So, it takes 1 and returns 1^2, then it takes 2 and returns 2^2, and so on.</li>
+<li>Finally, the <code>map()</code> function returns a vector of 1, 4, and 9 after it run the <code>square</code> function on each element of the vector of 1 to 3.</li>
+</ul>
+<p>So let’s stop here and have a grasp on the concept of functional programming, before we explore more of this type of functions. To be continued…</p>
+<p>To read more about functional programming, please visit Hadley Wickham’s <a href="https://adv-r.hadley.nz/">Advanced R</a> book, chapter 9 to 11.</p>
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{tan2024,
+  author = {Tan, Joan},
+  title = {What Is Functional Programming {(Part} {I)}},
+  date = {2024-01-14},
+  url = {https://joantan.org/R/2024-01-14-functional-programming/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-tan2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Tan, Joan. 2024. <span>“What Is Functional Programming (Part I).”</span>
+January 14, 2024. <a href="https://joantan.org/R/2024-01-14-functional-programming/">https://joantan.org/R/2024-01-14-functional-programming/</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -441,7 +558,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2024, Dr.&nbsp;Joan Tan</div>   
+    <div class="nav-footer-left">Copyright 2024, Joan Tan</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

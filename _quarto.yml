@@ -4,17 +4,34 @@ project:
 
 website:
   open-graph: true
-  title: "Joan Tan"
+  site-url: https://joantan.org/
+  title: "Dr. Joan Tan"
   favicon: images/joanicon.png
+  google-analytics: 
+    tracking-id: "G-D2D80R1TVV"
+    anonymize-ip: true
   navbar:
+    logo: images/joanicon.png
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - R.qmd
+      - Python.qmd
+      - Statistics.qmd
+      - Resources.qmd
       - publication.qmd
+      - icon: linkedin
+        href: https://www.linkedin.com/in/joan-tan-532a6765/
+        target: _blank
+      - icon: github
+        href: https://github.com/joannytan
+        target: _blank
+      - icon: envelope
+        href: mailto:joan.tan@monash.edu
   page-footer: 
     background: light
-    left: Copyright 2024, Dr. Joan Tan
+    left: Copyright 2024, Joan Tan
     # right: 
     #   - icon: github
     #     href: https://github.com/samanthacsik
@@ -34,7 +51,6 @@ format:
     sidebar: false
     theme: 
       - styles.scss
-    # css: styles.css
     mainfont: Nunito
     toc: true
 
