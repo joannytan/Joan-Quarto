@@ -6,19 +6,19 @@
   </url>
   <url>
     <loc>https://joantan.org/index.html</loc>
-    <lastmod>2024-01-13T23:29:17.593Z</lastmod>
+    <lastmod>2024-01-14T02:31:11.785Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/about.html</loc>
-    <lastmod>2024-01-13T23:58:24.784Z</lastmod>
+    <lastmod>2024-01-14T02:31:13.159Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/R.html</loc>
-    <lastmod>2024-01-14T00:01:57.165Z</lastmod>
+    <lastmod>2024-01-15T11:49:41.142Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Resources.html</loc>
-    <lastmod>2024-01-12T13:57:38.588Z</lastmod>
+    <lastmod>2024-01-14T04:49:38.691Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Statistics.html</loc>
@@ -30,6 +30,10 @@
   </url>
   <url>
     <loc>https://joantan.org/Rposts/2024-01-14-functional-programming/index.html</loc>
-    <lastmod>2024-01-14T00:01:56.811Z</lastmod>
+    <lastmod>2024-01-14T02:31:25.919Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joantan.org/Rposts/2024-01-15-purrr-reduce/index.html</loc>
+    <lastmod>2024-01-15T11:49:40.732Z</lastmod>
   </url>
 </urlset>

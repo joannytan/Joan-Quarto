@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joan Tan">
-<meta name="dcterms.date" content="2024-01-14">
-<meta name="description" content="A complimentary to OOP">
+<meta name="dcterms.date" content="2024-01-15">
+<meta name="description" content="The beauty of functional programming">
 
-<title>Dr.&nbsp;Joan Tan - What is functional programming (Part I)</title>
+<title>Dr.&nbsp;Joan Tan - reduce in purrr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,6 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,9 +110,9 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 </script>
 
 
-<meta property="og:title" content="Dr.&nbsp;Joan Tan - What is functional programming (Part I)">
-<meta property="og:description" content="A complimentary to OOP">
-<meta property="og:image" content="https://joantan.org/Rposts/2024-01-14-functional-programming/functionalprogramming.jpg">
+<meta property="og:title" content="Dr.&nbsp;Joan Tan - reduce in purrr">
+<meta property="og:description" content="The beauty of functional programming">
+<meta property="og:image" content="https://joantan.org/Rposts/2024-01-15-purrr-reduce/reduce_purrr.jpeg">
 <meta property="og:site-name" content="Dr. Joan Tan">
 </head>
 
@@ -188,15 +190,16 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">What is functional programming (Part I)</h1>
+      <h1 class="title"><code>reduce</code> in <code>purrr</code></h1>
                   <div>
         <div class="description">
-          A complimentary to OOP
+          The beauty of functional programming
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">advanced</div>
+                <div class="quarto-category">functional</div>
               </div>
                   </div>
   </div>
@@ -223,7 +226,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 14, 2024</p>
+        <p class="date">January 15, 2024</p>
       </div>
     </div>
     
@@ -239,7 +242,9 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-a-function" id="toc-what-is-a-function" class="nav-link active" data-scroll-target="#what-is-a-function">What is a function?</a></li>
+  <li><a href="#example-1-summing-up-a-vector" id="toc-example-1-summing-up-a-vector" class="nav-link active" data-scroll-target="#example-1-summing-up-a-vector">Example 1: Summing up a vector</a></li>
+  <li><a href="#example-2-summing-up-a-list-of-vectors" id="toc-example-2-summing-up-a-list-of-vectors" class="nav-link" data-scroll-target="#example-2-summing-up-a-list-of-vectors">Example 2: Summing up a list of vectors</a></li>
+  <li><a href="#example-3-calculate-rolling-sum-for-3-lags-value" id="toc-example-3-calculate-rolling-sum-for-3-lags-value" class="nav-link" data-scroll-target="#example-3-calculate-rolling-sum-for-3-lags-value">Example 3: Calculate rolling sum for 3 lags value</a></li>
   </ul>
 </nav>
     </div>
@@ -249,78 +254,159 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 
 
 
-<p>It actually took me a while to understand what functional programming is. So to give it a good start without getting too technical, I will start with a simple example.</p>
-<p>Functional programming is like using a microwave. You put something in, press a button, and get something out. You don’t need to know how it works—the microwave takes care of that for you. You just need to know what buttons to press. This is the essence of functional programming. Whatever matters in this context is the ingredients of the food (data and input for the function) that you put together and place it inside the microwave, the function of the microwave that you choose (function(s)). The output is the dish that you get (output of the function). In an essence, you need input, function, and output.</p>
-<section id="what-is-a-function" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-a-function">What is a function?</h2>
-<p>A function is a block of code that performs a specific task. It takes in some input, performs some processing, and produces some output. A function is a self-contained block of code that encapsulates a specific task or related group of tasks. Functions usually “do” something, and they usually “return” something. The “something” that a function returns is called its return value. A function can have</p>
+<p>One of the function that seems quite confusing at first but it works wonders when you unleashed its power is <code>reduce</code> from the <code>purrr</code> package.</p>
+<p><code>reduce()</code> function is used to reduce a list to a single value by iteratively applying a binary function to each combination of the element of a vector. The examples below show three different level of examples to help understand how <code>reduce()</code> function works in each case here.</p>
+<p>The general syntax of <code>reduce()</code> function is as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(.x, .f, ..., <span class="at">.init =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li>zero or more parameters. Parameters are inputs to the function;</li>
-<li>zero or more return values. Return values are outputs from the function.<br>
-</li>
-<li>zero or more side effects. Side effects are outputs from the function that are not return values.</li>
+<li><code>.x</code> is a vector</li>
+<li><code>.f</code> is a function of two arguments</li>
+<li><code>...</code> is additional arguments to be passed to <code>.f</code></li>
+<li><code>.init</code> is an optional initial value for <code>.x</code></li>
 </ul>
-<p>R as a functional programming language, does not require you to write pure functions. A pure function is a function that has no side effects and always returns the same output for the same input. Imagine if you would like to generate random number from the function, then it is not a pure function. However, it is still a function.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hadley Wickham
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A functional is a function that takes a function as an input and returns a vector as output.</p>
-</div>
-</div>
-<p>The function that is passed in as an input is called a function argument. The function that is returned as an output is called a function output. There are lots of examples of functionals can be found in <code>purrr</code> package. For example, <code>map()</code> is a functional that takes a function as an input and returns a vector as output.</p>
-<p>For simple illustration, let’s focus on the <code>map()</code> function.</p>
+<section id="example-1-summing-up-a-vector" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-summing-up-a-vector">Example 1: Summing up a vector</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
 </div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>x</code> is a vector of numbers from 1 to 5</li>
+<li><code>reduce()</code> function takes in two arguments: <code>x</code> and <code>+</code></li>
+<li><code>+</code> is a function of two arguments, which is the sum of two numbers</li>
+<li><code>reduce()</code> function will apply <code>+</code> function to each combination of the element of <code>x</code> vector</li>
+<li><code>reduce()</code> function will return a single value, which is the sum of all the elements in <code>x</code> vector</li>
+<li><code>reduce()</code> function is equivalent to <code>sum(x)</code></li>
+<li><code>reduce()</code> function is equivalent to <code>sum(x, 0)</code> if <code>.init</code> is specified</li>
+<li>in this case, the following iteration is performed.
+<ul>
+<li>sum(1, 2) = 3 (sum of first 2 elements)</li>
+<li>sum(3, 3) = 6 (sum of first 2 elements plus third element)</li>
+<li>sum(6, 4) = 10 (sum of first 3 elements plus fourth element)</li>
+<li>sum(10, 5) = 15 (sum of first 4 elements plus fifth element) Therefore the <code>reduce()</code> function here simplify the procedure above and return only a single output of 15.</li>
+</ul></li>
+</ul>
+<p><strong>Your turn</strong> <i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i></p>
+<p>Try to put the initial value of 10 to start with and see what happens. Can you explain?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, square)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>, <span class="at">.init =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+</section>
+<section id="example-2-summing-up-a-list-of-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-summing-up-a-list-of-vectors">Example 2: Summing up a list of vectors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 1
+[1] 1 2 3
 
 [[2]]
-[1] 4
+[1] 4 5 6
 
 [[3]]
-[1] 9</code></pre>
+[1] 7 8 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12 15 18</code></pre>
 </div>
 </div>
-<p><strong>Explanation</strong></p>
+<p><strong>Explanation:</strong></p>
 <ul>
-<li>First, a <code>square</code> function is created.<br>
+<li><code>x</code> is a list of vectors.<br>
 </li>
-<li>Second, the <code>map()</code> function is called.<br>
+<li><code>reduce()</code> function takes in two arguments: <code>x</code> and <code>+</code>.<br>
 </li>
-<li>Then, the first argument is a vector of 1 to 3. The second argument is the <code>square</code> function.</li>
-<li>The <code>map()</code> function takes the <code>square</code> function as an input and returns a vector as output.</li>
-<li>The <code>map()</code> function applies the <code>square</code> function to each element of the vector of 1 to 3.</li>
-<li>So, it takes 1 and returns 1^2, then it takes 2 and returns 2^2, and so on.</li>
-<li>Finally, the <code>map()</code> function returns a vector of 1, 4, and 9 after it run the <code>square</code> function on each element of the vector of 1 to 3.</li>
+<li><code>+</code> is a function of two arguments, which is the sum of two numbers.<br>
+</li>
+<li><code>reduce()</code> function will apply <code>+</code> function to each combination of the element of <code>x</code> list.<br>
+</li>
+<li><code>reduce()</code> function is equivalent to <code>sum(unlist(x))</code>.<br>
+</li>
+<li><code>reduce()</code> function is equivalent to <code>sum(unlist(x), 0)</code> if <code>.init</code> is specified.<br>
+</li>
+<li>in this case, the following iteration is performed.
+<ul>
+<li>sum(1, 4, 7) = 12 (sum of first elements from each list).<br>
+</li>
+<li>sum(2, 5, 8) = 15 (sum of first 2 elements).<br>
+</li>
+<li>sum(3, 6, 9) = 10 (sum of first 3 elements).<br>
+Therefore the <code>reduce()</code> function here simplify the procedure above and return only a single. output for each iterative summation procedure for first element, second element and third element respectively.</li>
+</ul></li>
 </ul>
-<p>So let’s stop here and have a grasp on the concept of functional programming, before we explore more of this type of functions. To be continued…</p>
-<p>To read more about functional programming, please visit Hadley Wickham’s <a href="https://adv-r.hadley.nz/">Advanced R</a> book, chapter 9 to 11.</p>
+</section>
+<section id="example-3-calculate-rolling-sum-for-3-lags-value" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-calculate-rolling-sum-for-3-lags-value">Example 3: Calculate rolling sum for 3 lags value</h2>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">testing =</span> <span class="fu">reduce</span>(<span class="fu">map</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="sc">~</span><span class="fu">lag</span>(value, .x)), <span class="st">`</span><span class="at">+</span><span class="st">`</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+     day   value testing
+   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 -0.560   NA    
+ 2     2 -0.230   NA    
+ 3     3  1.56     0.768
+ 4     4  0.0705   1.40 
+ 5     5  0.129    1.76 
+ 6     6  1.72     1.91 
+ 7     7  0.461    2.31 
+ 8     8 -1.27     0.911
+ 9     9 -0.687   -1.49 
+10    10 -0.446   -2.40 </code></pre>
+</div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>x</code> is a tibble with 2 columns: <code>day</code> and <code>value</code>.</li>
+<li><code>day</code> is a sequence of numbers from 1 to 10.</li>
+<li><code>value</code> is a sequence of random numbers generated from normal distribution.</li>
+<li><code>map()</code> function is used to apply <code>lag()</code> function to each element of the vector <code>0:2</code>.</li>
+<li><code>lag()</code> function is used to shift the value of <code>value</code> column by 0, 1 and 2 lags respectively.</li>
+<li><code>reduce()</code> function is used to apply <code>+</code> function to each combination of the element of <code>map()</code> function.</li>
+<li><code>reduce()</code> function is equivalent to <code>lag(value, 0) + lag(value, 1) + lag(value, 2)</code>.</li>
+<li>in this case, the following iteration is performed.
+<ul>
+<li>day 1: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.560 + NA + NA = NA</li>
+<li>day 2: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.230 + NA + NA = NA</li>
+<li>day 3: lag(value, 0) + lag(value, 1) + lag(value, 2) = 1.558 + -0.230 + -0.560 = 0.768</li>
+<li>day 4: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.070 + 1.558 + -0.230 = 1.399</li>
+<li>day 5: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.129 + 0.070 + 1.558 = 1.757 and so on. This is equivalent to the <code>rollsum()</code> function from the <code>zoo</code> package. It basically calculate the rolling sum for the last 3 lags value.</li>
+</ul></li>
+</ul>
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{tan2024,
   author = {Tan, Joan},
-  title = {What Is Functional Programming {(Part} {I)}},
-  date = {2024-01-14},
-  url = {https://joantan.org/R/2024-01-14-functional-programming/},
+  title = {`Reduce` in `Purrr`},
+  date = {2024-01-15},
+  url = {https://joantan.org/R/2024-01-15-purrr-reduce/},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-tan2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-Tan, Joan. 2024. <span>“What Is Functional Programming (Part I).”</span>
-January 14, 2024. <a href="https://joantan.org/R/2024-01-14-functional-programming/">https://joantan.org/R/2024-01-14-functional-programming/</a>.
+Tan, Joan. 2024. <span>“`Reduce` in `Purrr`.”</span> January 15, 2024.
+<a href="https://joantan.org/R/2024-01-15-purrr-reduce/">https://joantan.org/R/2024-01-15-purrr-reduce/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

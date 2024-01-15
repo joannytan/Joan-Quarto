@@ -5,7 +5,7 @@ author:
   - name: Joan Tan
     url: https://joantan.org/
     orcid: 0000-0001-6374-1568
-    affiliation: Department of Econometrics and Business Statistics, Monash University
+    affiliation: Department of Econometrics and Business Statistics, Monash University/ NAB 
     affiliation-url: https://www.monash.edu/business/econometrics-and-business-statistics/
 date: 01-14-2024
 categories: [R, advanced] # self-defined categories
