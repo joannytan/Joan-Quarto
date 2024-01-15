@@ -19,10 +19,10 @@ about:
 ---
 
 <!-- ::: {.small-text} -->
+
 Hello, I am Joan, a passionate data analyst who is dedicated to exploring the world of data and discovering insights that can drive positive change. I have always been fascinated by the power of data to tell stories and reveal patterns. I love nothing more than diving into complex data sets and using the skill in programming, statistics, and machine learning to extract meaningful insights. I hope to inspire others to embrace the power of data and use it to make a difference to your career.
 
-When I aren’t busy exploring the world of data science, I enjoy spending my free time pursuing other passions. I love Baking! I loves nothing more than experimenting with new recipes and sharing my creations with friends and family. I also enjoy reading productivity books, which I find inspiring and motivating. I believes that by learning from the experiences of others and adopting new strategies for managing time and staying focused, I can be more effective in all aspects of my life. Whether I am in the kitchen or curies up with a good book, I always seeking new ways to challenge myself and grow as a person.
-<!-- ::: -->
+When I aren’t busy exploring the world of data science, I enjoy spending my free time pursuing other passions. I love Baking! I loves nothing more than experimenting with new recipes and sharing my creations with friends and family. I also enjoy reading productivity books, which I find inspiring and motivating. I believes that by learning from the experiences of others and adopting new strategies for managing time and staying focused, I can be more effective in all aspects of my life. Whether I am in the kitchen or curies up with a good book, I always seeking new ways to challenge myself and grow as a person. <!-- ::: -->
 
 <!-- ### hi there!     -->
 
@@ -33,11 +33,15 @@ When I aren’t busy exploring the world of data science, I enjoy spending my fr
 <!-- ### education -->
 
 <!-- <div class="topbr"> -->
+
 <!-- <p class="custom-subtitle">{{< fa graduation-cap title="A graduation cap" >}} **MS in Ecology, Evolution & Marine Biology, 2020**</p>   -->
+
 <!-- <p class="custom-subtitle2">University of California, Santa Barbara</p> -->
 
 <!-- <p class="custom-subtitle">{{< fa graduation-cap title="A graduation cap" >}} **BS in Marine Biology, 2016**</p>   -->
+
 <!-- <p class="custom-subtitle2">Northeastern University</p> -->
+
 <!-- </div> -->
 
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -45,11 +49,15 @@ When I aren’t busy exploring the world of data science, I enjoy spending my fr
 <!-- ### experience -->
 
 <!-- <div class="topbr"> -->
+
 <!-- <p class="custom-subtitle">{{< fa chalkboard-teacher title="A teacher at a chalkboard" >}} **Data Training Coordinator, 2021-present**</p>    -->
+
 <!-- <p class="custom-subtitle2">National Center for Ecological Analysis & Synthesis</p>   -->
 
 <!-- <p class="custom-subtitle">{{< fa chart-bar title="A bar chart" >}} **Data Science Fellow, 2020-2021**</p>     -->
+
 <!-- <p class="custom-subtitle2">National Center for Ecological Analysis & Synthesis</p> -->
+
 <!-- </div> -->
 
 <!-- FOR REFERENCE: `r fontawesome::fa("graduation-cap", fill = "#98A08D", a11y = "sem")` # stopped working 5/1/2023? -->

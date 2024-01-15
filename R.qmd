@@ -1,6 +1,6 @@
 ---
-title: "R"
-subtitle: "Many people tend to look at programming styles and languages like religions: if you belong to one, you cannot belong to others. But this analogy is another fallacy. (Niklaus Wirth)"
+title: "R/Python"
+subtitle: "“Many people tend to look at programming styles and languages like religions: if you belong to one, you cannot belong to others. But this analogy is another fallacy” -- Niklaus Wirth"
 listing:
   contents: Rposts
   sort: "date desc"

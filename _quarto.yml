@@ -17,7 +17,6 @@ website:
         text: Home
       - about.qmd
       - R.qmd
-      - Python.qmd
       - Statistics.qmd
       - Resources.qmd
       - publication.qmd
