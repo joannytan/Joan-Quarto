@@ -1,5 +1,5 @@
 ---
-title: "`wtih` vs `within` evaluate expression in an environment"
+title: "`with` vs `within` evaluate expression in an environment"
 description: "The beauty of functional programming"
 author:
   - name: Joan Tan
@@ -50,4 +50,4 @@ within(df, {
 df
 ```
 
-In the code chunk above, two new columns are being created and please note that no column has been added to the original data. You have to assign the output from the `within` environment to a new object. 
+In the code chunk above, two new columns are being created and please note that no column has been added to the original data. You have to assign the output from the `within` environment to a new object.
