@@ -1,6 +1,6 @@
 ---
-title: "`with` vs `within` evaluate expression in an environment"
-description: "The beauty of functional programming"
+title: "`with` vs `within` "
+description: "Evaluate expression in an environment"
 author:
   - name: Joan Tan
     url: https://joantan.org/
