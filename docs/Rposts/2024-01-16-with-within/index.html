@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joan Tan">
-<meta name="dcterms.date" content="2024-01-15">
+<meta name="dcterms.date" content="2024-01-16">
 <meta name="description" content="The beauty of functional programming">
 
-<title>Dr.&nbsp;Joan Tan - reduce in purrr</title>
+<title>Dr.&nbsp;Joan Tan - wtih vs within evaluate expression in an environment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,8 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,9 +108,9 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 </script>
 
 
-<meta property="og:title" content="Dr.&nbsp;Joan Tan - reduce in purrr">
+<meta property="og:title" content="Dr.&nbsp;Joan Tan - wtih vs within evaluate expression in an environment">
 <meta property="og:description" content="The beauty of functional programming">
-<meta property="og:image" content="https://joantan.org/Rposts/2024-01-16-with-within/reduce_purrr.jpeg">
+<meta property="og:image" content="https://joantan.org/Rposts/2024-01-16-with-within/with.jpg">
 <meta property="og:site-name" content="Dr. Joan Tan">
 </head>
 
@@ -185,8 +183,8 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title"><code>reduce</code> in <code>purrr</code></h1>
+    <div class="quarto-title column-page">
+      <h1 class="title"><code>wtih</code> vs <code>within</code> evaluate expression in an environment</h1>
                   <div>
         <div class="description">
           The beauty of functional programming
@@ -194,8 +192,8 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">R</div>
-                <div class="quarto-category">advanced</div>
-                <div class="quarto-category">functional</div>
+                <div class="quarto-category">intermediate</div>
+                <div class="quarto-category">with</div>
               </div>
                   </div>
   </div>
@@ -222,7 +220,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 15, 2024</p>
+        <p class="date">January 16, 2024</p>
       </div>
     </div>
     
@@ -233,176 +231,133 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#example-1-summing-up-a-vector" id="toc-example-1-summing-up-a-vector" class="nav-link active" data-scroll-target="#example-1-summing-up-a-vector">Example 1: Summing up a vector</a></li>
-  <li><a href="#example-2-summing-up-a-list-of-vectors" id="toc-example-2-summing-up-a-list-of-vectors" class="nav-link" data-scroll-target="#example-2-summing-up-a-list-of-vectors">Example 2: Summing up a list of vectors</a></li>
-  <li><a href="#example-3-calculate-rolling-sum-for-3-lags-value" id="toc-example-3-calculate-rolling-sum-for-3-lags-value" class="nav-link" data-scroll-target="#example-3-calculate-rolling-sum-for-3-lags-value">Example 3: Calculate rolling sum for 3 lags value</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
 
-<p>One of the function that seems quite confusing at first but it works wonders when you unleashed its power is <code>reduce</code> from the <code>purrr</code> package.</p>
-<p><code>reduce()</code> function is used to reduce a list to a single value by iteratively applying a binary function to each combination of the element of a vector. The examples below show three different level of examples to help understand how <code>reduce()</code> function works in each case here.</p>
-<p>The general syntax of <code>reduce()</code> function is as follows:</p>
+<p><code>with</code> evaluates an expression in an environment constructed from data, possibly modifying the data in the process. <code>within</code> is similar to <code>with</code>, except that it modifies the data frame directly and only examines the environemnt after the evaluation of the expression.</p>
+<p><strong>Case study 1: to create a new variable <code>new_var</code> in <code>df</code> that is the sum of <code>var1</code> and <code>var2</code></strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(.x, .f, ..., <span class="at">.init =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">var2 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   var1 var2
+1     1   11
+2     2   12
+3     3   13
+4     4   14
+5     5   15
+6     6   16
+7     7   17
+8     8   18
+9     9   19
+10   10   20</code></pre>
 </div>
-<ul>
-<li><code>.x</code> is a vector</li>
-<li><code>.f</code> is a function of two arguments</li>
-<li><code>...</code> is additional arguments to be passed to <code>.f</code></li>
-<li><code>.init</code> is an optional initial value for <code>.x</code></li>
-</ul>
-<section id="example-1-summing-up-a-vector" class="level2">
-<h2 class="anchored" data-anchor-id="example-1-summing-up-a-vector">Example 1: Summing up a vector</h2>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: with</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>new_var <span class="ot">&lt;-</span> <span class="fu">with</span>(df, var1 <span class="sc">+</span> var2) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># is equivalent to</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>new_var <span class="ot">&lt;-</span> df<span class="sc">$</span>var1 <span class="sc">+</span> df<span class="sc">$</span>var2</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   var1 var2 new_var
+1     1   11      12
+2     2   12      14
+3     3   13      16
+4     4   14      18
+5     5   15      20
+6     6   16      22
+7     7   17      24
+8     8   18      26
+9     9   19      28
+10   10   20      30</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 2: within</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">within</span>(df, new_var <span class="ot">&lt;-</span> var1 <span class="sc">+</span> var2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   var1 var2 new_var
+1     1   11      12
+2     2   12      14
+3     3   13      16
+4     4   14      18
+5     5   15      20
+6     6   16      22
+7     7   17      24
+8     8   18      26
+9     9   19      28
+10   10   20      30</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 3: mutate</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">new_var =</span> var1 <span class="sc">+</span> var2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   var1 var2 new_var
+1     1   11      12
+2     2   12      14
+3     3   13      16
+4     4   14      18
+5     5   15      20
+6     6   16      22
+7     7   17      24
+8     8   18      26
+9     9   19      28
+10   10   20      30</code></pre>
+</div>
+</div>
+<p><strong>Case study 2: to create a new variable <code>new_var</code> in <code>df</code> that is the sum of <code>var1</code> and <code>var2</code>; <code>new_var2</code> is the product of <code>var1</code> and <code>var3</code>.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">var2 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">var3 =</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">within</span>(df, {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  new_var <span class="ot">&lt;-</span> var1 <span class="sc">+</span> var2</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  new_var2 <span class="ot">&lt;-</span> var1 <span class="sc">*</span> var3</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15</code></pre>
+<pre><code>   var1 var2 var3 new_var2 new_var
+1     1   11   21       21      12
+2     2   12   22       44      14
+3     3   13   23       69      16
+4     4   14   24       96      18
+5     5   15   25      125      20
+6     6   16   26      156      22
+7     7   17   27      189      24
+8     8   18   28      224      26
+9     9   19   29      261      28
+10   10   20   30      300      30</code></pre>
 </div>
-</div>
-<p><strong>Explanation:</strong></p>
-<ul>
-<li><code>x</code> is a vector of numbers from 1 to 5</li>
-<li><code>reduce()</code> function takes in two arguments: <code>x</code> and <code>+</code></li>
-<li><code>+</code> is a function of two arguments, which is the sum of two numbers</li>
-<li><code>reduce()</code> function will apply <code>+</code> function to each combination of the element of <code>x</code> vector</li>
-<li><code>reduce()</code> function will return a single value, which is the sum of all the elements in <code>x</code> vector</li>
-<li><code>reduce()</code> function is equivalent to <code>sum(x)</code></li>
-<li><code>reduce()</code> function is equivalent to <code>sum(x, 0)</code> if <code>.init</code> is specified</li>
-<li>in this case, the following iteration is performed.
-<ul>
-<li>sum(1, 2) = 3 (sum of first 2 elements)</li>
-<li>sum(3, 3) = 6 (sum of first 2 elements plus third element)</li>
-<li>sum(6, 4) = 10 (sum of first 3 elements plus fourth element)</li>
-<li>sum(10, 5) = 15 (sum of first 4 elements plus fifth element) Therefore the <code>reduce()</code> function here simplify the procedure above and return only a single output of 15.</li>
-</ul></li>
-</ul>
-<p><strong>Your turn</strong> <i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i></p>
-<p>Try to put the initial value of 10 to start with and see what happens. Can you explain?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>, <span class="at">.init =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 25</code></pre>
+<pre><code>   var1 var2 var3
+1     1   11   21
+2     2   12   22
+3     3   13   23
+4     4   14   24
+5     5   15   25
+6     6   16   26
+7     7   17   27
+8     8   18   28
+9     9   19   29
+10   10   20   30</code></pre>
 </div>
 </div>
-</section>
-<section id="example-2-summing-up-a-list-of-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="example-2-summing-up-a-list-of-vectors">Example 2: Summing up a list of vectors</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 1 2 3
-
-[[2]]
-[1] 4 5 6
-
-[[3]]
-[1] 7 8 9</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(x, <span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12 15 18</code></pre>
-</div>
-</div>
-<p><strong>Explanation:</strong></p>
-<ul>
-<li><code>x</code> is a list of vectors.<br>
-</li>
-<li><code>reduce()</code> function takes in two arguments: <code>x</code> and <code>+</code>.<br>
-</li>
-<li><code>+</code> is a function of two arguments, which is the sum of two numbers.<br>
-</li>
-<li><code>reduce()</code> function will apply <code>+</code> function to each combination of the element of <code>x</code> list.<br>
-</li>
-<li><code>reduce()</code> function is equivalent to <code>sum(unlist(x))</code>.<br>
-</li>
-<li><code>reduce()</code> function is equivalent to <code>sum(unlist(x), 0)</code> if <code>.init</code> is specified.<br>
-</li>
-<li>in this case, the following iteration is performed.
-<ul>
-<li>sum(1, 4, 7) = 12 (sum of first elements from each list).<br>
-</li>
-<li>sum(2, 5, 8) = 15 (sum of first 2 elements).<br>
-</li>
-<li>sum(3, 6, 9) = 10 (sum of first 3 elements).<br>
-Therefore the <code>reduce()</code> function here simplify the procedure above and return only a single. output for each iterative summation procedure for first element, second element and third element respectively.</li>
-</ul></li>
-</ul>
-</section>
-<section id="example-3-calculate-rolling-sum-for-3-lags-value" class="level2">
-<h2 class="anchored" data-anchor-id="example-3-calculate-rolling-sum-for-3-lags-value">Example 3: Calculate rolling sum for 3 lags value</h2>
-<div class="cell" data-warnings="false">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">testing =</span> <span class="fu">reduce</span>(<span class="fu">map</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="sc">~</span><span class="fu">lag</span>(value, .x)), <span class="st">`</span><span class="at">+</span><span class="st">`</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-     day   value testing
-   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 -0.560   NA    
- 2     2 -0.230   NA    
- 3     3  1.56     0.768
- 4     4  0.0705   1.40 
- 5     5  0.129    1.76 
- 6     6  1.72     1.91 
- 7     7  0.461    2.31 
- 8     8 -1.27     0.911
- 9     9 -0.687   -1.49 
-10    10 -0.446   -2.40 </code></pre>
-</div>
-</div>
-<p><strong>Explanation:</strong></p>
-<ul>
-<li><code>x</code> is a tibble with 2 columns: <code>day</code> and <code>value</code>.</li>
-<li><code>day</code> is a sequence of numbers from 1 to 10.</li>
-<li><code>value</code> is a sequence of random numbers generated from normal distribution.</li>
-<li><code>map()</code> function is used to apply <code>lag()</code> function to each element of the vector <code>0:2</code>.</li>
-<li><code>lag()</code> function is used to shift the value of <code>value</code> column by 0, 1 and 2 lags respectively.</li>
-<li><code>reduce()</code> function is used to apply <code>+</code> function to each combination of the element of <code>map()</code> function.</li>
-<li><code>reduce()</code> function is equivalent to <code>lag(value, 0) + lag(value, 1) + lag(value, 2)</code>.</li>
-<li>in this case, the following iteration is performed.
-<ul>
-<li>day 1: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.560 + NA + NA = NA</li>
-<li>day 2: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.230 + NA + NA = NA</li>
-<li>day 3: lag(value, 0) + lag(value, 1) + lag(value, 2) = 1.558 + -0.230 + -0.560 = 0.768</li>
-<li>day 4: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.070 + 1.558 + -0.230 = 1.399</li>
-<li>day 5: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.129 + 0.070 + 1.558 = 1.757 and so on. This is equivalent to the <code>rollsum()</code> function from the <code>zoo</code> package. It basically calculate the rolling sum for the last 3 lags value.</li>
-</ul></li>
-</ul>
+<p>In the code chunk above, two new columns are being created and please note that no column has been added to the original data. You have to assign the output from the <code>within</code> environment to a new object.</p>
 
 
-</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{tan2024,
   author = {Tan, Joan},
-  title = {`Reduce` in `Purrr`},
-  date = {2024-01-15},
-  url = {https://joantan.org/R/2024-01-15-purrr-reduce/},
+  title = {`Wtih` Vs `Within` Evaluate Expression in an Environment},
+  date = {2024-01-16},
+  url = {https://joantan.org/R/2024-01-16-with-within/},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-tan2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-Tan, Joan. 2024. <span>“`Reduce` in `Purrr`.”</span> January 15, 2024.
-<a href="https://joantan.org/R/2024-01-15-purrr-reduce/">https://joantan.org/R/2024-01-15-purrr-reduce/</a>.
+Tan, Joan. 2024. <span>“`Wtih` Vs `Within` Evaluate Expression in an
+Environment.”</span> January 16, 2024. <a href="https://joantan.org/R/2024-01-16-with-within/">https://joantan.org/R/2024-01-16-with-within/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
