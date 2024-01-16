@@ -1,0 +1,119 @@
+---
+title: "`reduce` in `purrr`"
+description: "The beauty of functional programming"
+author:
+  - name: Joan Tan
+    url: https://joantan.org/
+    orcid: 0000-0001-6374-1568
+    affiliation: Department of Econometrics and Business Statistics, Monash University/ NAB 
+    affiliation-url: https://www.monash.edu/business/econometrics-and-business-statistics/
+date: 01-15-2024
+categories: [R, advanced, functional] # self-defined categories
+citation: 
+  url: https://joantan.org/R/2024-01-15-purrr-reduce/ 
+image: reduce_purrr.jpeg
+draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+---
+
+One of the function that seems quite confusing at first but it works wonders when you unleashed its power is `reduce` from the `purrr` package.
+
+`reduce()` function is used to reduce a list to a single value by iteratively applying a binary function to each combination of the element of a vector. The examples below show three different level of examples to help understand how `reduce()` function works in each case here.
+
+The general syntax of `reduce()` function is as follows:
+
+```{r eval=FALSE}
+reduce(.x, .f, ..., .init = NULL)
+```
+
+- `.x` is a vector
+- `.f` is a function of two arguments
+- `...` is additional arguments to be passed to `.f`
+- `.init` is an optional initial value for `.x`
+
+## Example 1: Summing up a vector
+
+```{r}
+library(purrr)
+x <- c(1, 2, 3, 4, 5)
+reduce(x, `+`)
+```
+
+**Explanation:**
+
+- `x` is a vector of numbers from 1 to 5
+- `reduce()` function takes in two arguments: `x` and `+`
+- `+` is a function of two arguments, which is the sum of two numbers
+- `reduce()` function will apply `+` function to each combination of the element of `x` vector
+- `reduce()` function will return a single value, which is the sum of all the elements in `x` vector
+- `reduce()` function is equivalent to `sum(x)` 
+- `reduce()` function is equivalent to `sum(x, 0)` if `.init` is specified
+- in this case, the following iteration is performed.  
+  - sum(1, 2) = 3 (sum of first 2 elements)
+  - sum(3, 3) = 6 (sum of first 2 elements plus third element)
+  - sum(6, 4) = 10 (sum of first 3 elements plus fourth element)
+  - sum(10, 5) = 15 (sum of first 4 elements plus fifth element)
+  Therefore the `reduce()` function here simplify the procedure above and return only a single output of 15.
+  
+**Your turn** {{< fa pencil title="pencil" >}}
+
+Try to put the initial value of 10 to start with and see what happens. Can you explain?
+
+```{r}
+reduce(x, `+`, .init = 10)
+```
+  
+## Example 2: Summing up a list of vectors
+
+```{r}
+x <- list(c(1, 2, 3), c(4, 5, 6), c(7, 8, 9))
+x
+reduce(x, `+`)
+```
+
+**Explanation:**
+
+- `x` is a list of vectors.   
+- `reduce()` function takes in two arguments: `x` and `+`.   
+- `+` is a function of two arguments, which is the sum of two numbers.   
+- `reduce()` function will apply `+` function to each combination of the element of `x` list.   
+- `reduce()` function is equivalent to `sum(unlist(x))`.   
+- `reduce()` function is equivalent to `sum(unlist(x), 0)` if `.init` is specified.   
+- in this case, the following iteration is performed.      
+   - sum(1, 4, 7) = 12 (sum of first elements from each list).   
+   - sum(2, 5, 8) = 15 (sum of first 2 elements).   
+   - sum(3, 6, 9) = 10 (sum of first 3 elements).   
+  Therefore the `reduce()` function here simplify the procedure above and return only a single.  output for each iterative summation procedure for first element, second element and third element respectively.  
+
+## Example 3: Calculate rolling sum for 3 lags value
+
+```{r warnings=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+set.seed(123)
+x <- tibble(day = 1:10, 
+               value = rnorm(n = 10))
+
+x %>% 
+  mutate(testing = reduce(map(0:2, ~lag(value, .x)), `+`)) 
+```
+
+**Explanation:**
+
+- `x` is a tibble with 2 columns: `day` and `value`.
+- `day` is a sequence of numbers from 1 to 10.
+- `value` is a sequence of random numbers generated from normal distribution.
+- `map()` function is used to apply `lag()` function to each element of the vector `0:2`.
+- `lag()` function is used to shift the value of `value` column by 0, 1 and 2 lags respectively.
+- `reduce()` function is used to apply `+` function to each combination of the element of `map()` function.
+- `reduce()` function is equivalent to `lag(value, 0) + lag(value, 1) + lag(value, 2)`.
+- in this case, the following iteration is performed.  
+  - day 1: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.560 + NA + NA = NA 
+  - day 2: lag(value, 0) + lag(value, 1) + lag(value, 2) = -0.230 + NA + NA = NA
+  - day 3: lag(value, 0) + lag(value, 1) + lag(value, 2) = 1.558 + -0.230 + -0.560 = 0.768
+  - day 4: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.070 + 1.558 + -0.230 = 1.399
+  - day 5: lag(value, 0) + lag(value, 1) + lag(value, 2) = 0.129 + 0.070 + 1.558 = 1.757
+  and so on. This is equivalent to the `rollsum()` function from the `zoo` package. It basically calculate the rolling sum for the last 3 lags value.
+  
+

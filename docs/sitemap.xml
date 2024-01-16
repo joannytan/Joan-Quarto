@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joantan.org/publication.html</loc>
-    <lastmod>2024-01-12T13:56:43.119Z</lastmod>
+    <lastmod>2024-01-15T11:57:15.116Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/index.html</loc>
@@ -10,19 +10,19 @@
   </url>
   <url>
     <loc>https://joantan.org/about.html</loc>
-    <lastmod>2024-01-15T11:54:01.368Z</lastmod>
+    <lastmod>2024-01-16T07:14:03.456Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/R.html</loc>
-    <lastmod>2024-01-15T11:56:17.843Z</lastmod>
+    <lastmod>2024-01-16T09:14:12.080Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Resources.html</loc>
-    <lastmod>2024-01-14T04:49:38.691Z</lastmod>
+    <lastmod>2024-01-15T11:57:15.657Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Statistics.html</loc>
-    <lastmod>2024-01-15T11:54:47.279Z</lastmod>
+    <lastmod>2024-01-16T08:54:04.599Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Python.html</loc>
@@ -34,6 +34,10 @@
   </url>
   <url>
     <loc>https://joantan.org/Rposts/2024-01-15-purrr-reduce/index.html</loc>
-    <lastmod>2024-01-15T11:49:40.732Z</lastmod>
+    <lastmod>2024-01-16T09:14:11.640Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joantan.org/Rposts/2024-01-16-with-within/index.html</loc>
+    <lastmod>2024-01-16T08:54:04.337Z</lastmod>
   </url>
 </urlset>
