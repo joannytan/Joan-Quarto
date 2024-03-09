@@ -68,7 +68,7 @@ The diagonal element (i,i) of the hat matrix in linear regression represents the
 
 **Definition of leverage**
 
-Leverage refers to the influence a single data point has on the fitted regression line. A diagonal element (i,i) of the hat matrix, denoted by $h_{ii}$, captures this influence for the i-th data point. The value of h_ii ranges from 0 to 1.
+Leverage refers to the influence a single data point has on the fitted regression line. A diagonal element (i,i) of the hat matrix, denoted by $h_{ii}$, captures this influence for the i-th data point. The value of $h_{ii}$ ranges from 0 to 1.
 
 **Interpretation of h_ii**
 
