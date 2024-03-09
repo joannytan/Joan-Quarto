@@ -8,7 +8,7 @@ author:
     affiliation: Department of Econometrics and Business Statistics, Monash University/ NAB 
     affiliation-url: https://www.monash.edu/business/econometrics-and-business-statistics/
 date: 01-16-2024
-categories: [R, intermediate, with] # self-defined categories
+categories: [R, intermediate] # self-defined categories
 citation: 
   url: https://joantan.org/R/2024-01-16-with-within/ 
 image: with.jpg

@@ -1,0 +1,84 @@
+---
+title: "Generalized linear model"
+description: "Statistical models"
+author:
+  - name: Joan Tan
+    url: https://joantan.org/
+    orcid: 0000-0001-6374-1568
+    affiliation: Department of Econometrics and Business Statistics, Monash University/ NAB 
+    affiliation-url: https://www.monash.edu/business/econometrics-and-business-statistics/
+date: 03-09-2024
+categories: [model] # self-defined categories
+citation: 
+  url: https://joantan.org/Statistics/2024-03-09-GLM/ 
+image: glm.png
+draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+---
+
+A lot of people are familiar linear regression, but not many are familiar with generalized linear model (GLM). GLM is a generalization of linear regression that allows for response variables that have error distribution models other than a normal distribution. GLM is a powerful extension of ordinary linear regression. It allows us to handle a broader range of response variables and incorporates addtional flexibility.
+
+## Linear Regression vs. Generalized Linear Regression:
+
+- **Linear Regression**: In standard linear regression, we predict the expected value of a continuous response variable as a linear combination of predictor variables (features). The relationship between predictors and response is assumed to be linear.
+
+- **Generalized Linear Regression**: GLM generalize the concept above further. In GLM, we predict the expected value of a response variable using a linear combination of predictors. However, the response variable is not assumed to be normally distributed. Instead, the response variable can have any distribution from the exponential family of distributions. The link function is used to connect the linear combination of predictors to the expected value of the response variable. In a more easy to understand context, GLM allow the linear model to be related to the response variable via a link function. Additionally, GLMs account for the variance structure of the response variable, which can vary based on its predicted value.
+
+## What is GLM?
+
+A GLM consists of 3 components:
+
+- **Random Component**: The response variable Y is assumed to follow a distribution from the exponential family of distributions. The distribution is characterized by a mean and a variance.
+
+- **Systematic Component**: The systematic component of a GLM is a linear combination of the predictor variables. The linear combination is related to the expected value of the response variable through a link function.
+
+- **Link Function**: The link function is a function that relates the expected value of the response variable to the linear combination of predictors. The link function is used to model the relationship between the response variable and the linear combination of predictors.
+
+### Link Function
+
+The link function connects the linear predictor (a combination of predictors) to the response variable. Common link functions include:
+
+- **Identity Link**: The identity link function is used for response variables that follow a normal distribution. The identity link function is simply the linear predictor itself.
+
+- **Logit Link**: The logit link function is used for response variables that follow a binomial distribution. The logit link function is the log of the odds of the response variable being in a particular category. Suitable for binary responses (e.g., yes/no, default/non-default, success/failure) in logistic regression.
+
+- **Log Link**: The log link function is used for response variables that follow a Poisson distribution. The log link function is the natural logarithm of the expected value of the response variable. Useful for count data (e.g. number of events) in Poisson regression.
+
+- **Inverse Link**: The inverse link function is used for response variables that follow a gamma distribution. The inverse link function is the reciprocal of the expected value of the response variable. Suitable for continuous positive responses in gamma regression.
+
+### Variance Structure
+
+In addition to the link function, GLMs also account for the variance structure of the response variable. The variance structure can vary based on the predicted value of the response variable. For example, the variance of the response variable may increase as the predicted value increases. This is known as heteroscedasticity. GLMs can account for this by using a variance function that depends on the predicted value of the response variable. For instance, if the response vairable is always positive (e.g., counts, proportions), constant changes in predictors may lead to geometrically varying output changes (exponential growth or decay). In this case, the variance of the response variable is proportional to the square of the mean.
+
+## Example
+
+GLMs find applications in various fields:
+
+- **Logistic Regression**: Modelling binary outcomes (e.g., success/failure, default/non-default, yes/no).
+
+- **Poisson Regression**: Modelling count data (e.g., number of events).
+
+- **Gamma Regression**: Modelling continuous positive outcomes (e.g., insurance claims, income).
+
+- **Ordinal Regression**: Modelling ordered categorical outcomes (e.g., low/medium/high).
+
+- **Negative Binomial Regression**: Modelling overdispersed count data. Overdispereed means the variance is larger than the mean. The example of overdispersed count data is the number of accidents in different regions.
+
+- **Tweedie Regression**: Modelling continuous positive outcomes with a variance that is a power of the mean. The example of Tweedie regression is the insurance claims data. 
+
+### Estimation
+
+The parameters of a GLM are estimated using maximum likelihood estimation. The method involves finding the parameter values that maximize the likelihood function, which is a measure of how well the model explains the observed data. The process of estimating the parameters of a GLM is similar to that of estimating the parameters of a linear regression model, but it involves the use of an iterative algorithm to find the maximum likelihood estimates.
+
+The steps of estimation as follow:
+
+1. Write the probability density function (pdf) or probability mass function (pmf) of the response variable in terms of the mean and variance.
+
+2. Write the log-likelihood function, which is the natural logarithm of the likelihood function.
+
+3. Maximize the log-likelihood function with respect to the parameters of the model using an iterative algorithm.
+
+4. The iterative algorithm is typically the Newton-Raphson method or the Fisher scoring method.
+
+## Conclusion
+
+In summary, GLM is a powerful extension of ordinary linear regression. It allows us to handle a broader range of response variables and incorporates additional flexibility. GLMs are widely used in practice and have many applications in various fields. They are a valuable tool for modelling a wide range of response variables and can be used to make predictions and inferences about the relationships between predictors and response variables.

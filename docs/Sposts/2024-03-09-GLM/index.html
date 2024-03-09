@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joan Tan">
-<meta name="dcterms.date" content="2024-01-16">
-<meta name="description" content="The beauty of functional programming">
+<meta name="dcterms.date" content="2024-03-09">
+<meta name="description" content="Statistical models">
 
-<title>Dr.&nbsp;Joan Tan - with vs within evaluate expression in an environment</title>
+<title>Dr.&nbsp;Joan Tan - Generalized linear model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -108,10 +74,12 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 </script>
 
 
-<meta property="og:title" content="Dr.&nbsp;Joan Tan - with vs within evaluate expression in an environment">
-<meta property="og:description" content="The beauty of functional programming">
-<meta property="og:image" content="https://joantan.org/Rposts/2024-01-15-purrr-reduce/with.jpg">
+<meta property="og:title" content="Dr.&nbsp;Joan Tan - Generalized linear model">
+<meta property="og:description" content="Statistical models">
+<meta property="og:image" content="https://joantan.org/Sposts/2024-03-09-GLM/glm.png">
 <meta property="og:site-name" content="Dr. Joan Tan">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-fixed">
@@ -183,17 +151,15 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title"><code>with</code> vs <code>within</code> evaluate expression in an environment</h1>
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Generalized linear model</h1>
                   <div>
         <div class="description">
-          The beauty of functional programming
+          Statistical models
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">R</div>
-                <div class="quarto-category">intermediate</div>
-                <div class="quarto-category">with</div>
+                <div class="quarto-category">model</div>
               </div>
                   </div>
   </div>
@@ -220,7 +186,7 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 16, 2024</p>
+        <p class="date">March 9, 2024</p>
       </div>
     </div>
     
@@ -231,133 +197,102 @@ gtag('config', 'G-D2D80R1TVV', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#linear-regression-vs.-generalized-linear-regression" id="toc-linear-regression-vs.-generalized-linear-regression" class="nav-link active" data-scroll-target="#linear-regression-vs.-generalized-linear-regression">Linear Regression vs.&nbsp;Generalized Linear Regression:</a></li>
+  <li><a href="#what-is-glm" id="toc-what-is-glm" class="nav-link" data-scroll-target="#what-is-glm">What is GLM?</a>
+  <ul class="collapse">
+  <li><a href="#link-function" id="toc-link-function" class="nav-link" data-scroll-target="#link-function">Link Function</a></li>
+  <li><a href="#variance-structure" id="toc-variance-structure" class="nav-link" data-scroll-target="#variance-structure">Variance Structure</a></li>
+  </ul></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a>
+  <ul class="collapse">
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
-<p><code>with</code> evaluates an expression in an environment constructed from data, possibly modifying the data in the process. <code>within</code> is similar to <code>with</code>, except that it modifies the data frame directly and only examines the environemnt after the evaluation of the expression.</p>
-<p><strong>Case study 1: to create a new variable <code>new_var</code> in <code>df</code> that is the sum of <code>var1</code> and <code>var2</code></strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">var2 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2
-1     1   11
-2     2   12
-3     3   13
-4     4   14
-5     5   15
-6     6   16
-7     7   17
-8     8   18
-9     9   19
-10   10   20</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: with</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>new_var <span class="ot">&lt;-</span> <span class="fu">with</span>(df, var1 <span class="sc">+</span> var2) </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># is equivalent to</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>new_var <span class="ot">&lt;-</span> df<span class="sc">$</span>var1 <span class="sc">+</span> df<span class="sc">$</span>var2</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2 new_var
-1     1   11      12
-2     2   12      14
-3     3   13      16
-4     4   14      18
-5     5   15      20
-6     6   16      22
-7     7   17      24
-8     8   18      26
-9     9   19      28
-10   10   20      30</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 2: within</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">within</span>(df, new_var <span class="ot">&lt;-</span> var1 <span class="sc">+</span> var2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2 new_var
-1     1   11      12
-2     2   12      14
-3     3   13      16
-4     4   14      18
-5     5   15      20
-6     6   16      22
-7     7   17      24
-8     8   18      26
-9     9   19      28
-10   10   20      30</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 3: mutate</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">new_var =</span> var1 <span class="sc">+</span> var2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2 new_var
-1     1   11      12
-2     2   12      14
-3     3   13      16
-4     4   14      18
-5     5   15      20
-6     6   16      22
-7     7   17      24
-8     8   18      26
-9     9   19      28
-10   10   20      30</code></pre>
-</div>
-</div>
-<p><strong>Case study 2: to create a new variable <code>new_var</code> in <code>df</code> that is the sum of <code>var1</code> and <code>var2</code>; <code>new_var2</code> is the product of <code>var1</code> and <code>var3</code>.</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">var2 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">var3 =</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">within</span>(df, {</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  new_var <span class="ot">&lt;-</span> var1 <span class="sc">+</span> var2</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  new_var2 <span class="ot">&lt;-</span> var1 <span class="sc">*</span> var3</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2 var3 new_var2 new_var
-1     1   11   21       21      12
-2     2   12   22       44      14
-3     3   13   23       69      16
-4     4   14   24       96      18
-5     5   15   25      125      20
-6     6   16   26      156      22
-7     7   17   27      189      24
-8     8   18   28      224      26
-9     9   19   29      261      28
-10   10   20   30      300      30</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   var1 var2 var3
-1     1   11   21
-2     2   12   22
-3     3   13   23
-4     4   14   24
-5     5   15   25
-6     6   16   26
-7     7   17   27
-8     8   18   28
-9     9   19   29
-10   10   20   30</code></pre>
-</div>
-</div>
-<p>In the code chunk above, two new columns are being created and please note that no column has been added to the original data. You have to assign the output from the <code>within</code> environment to a new object.</p>
+<p>A lot of people are familiar linear regression, but not many are familiar with generalized linear model (GLM). GLM is a generalization of linear regression that allows for response variables that have error distribution models other than a normal distribution. GLM is a powerful extension of ordinary linear regression. It allows us to handle a broader range of response variables and incorporates addtional flexibility.</p>
+<section id="linear-regression-vs.-generalized-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-vs.-generalized-linear-regression">Linear Regression vs.&nbsp;Generalized Linear Regression:</h2>
+<ul>
+<li><p><strong>Linear Regression</strong>: In standard linear regression, we predict the expected value of a continuous response variable as a linear combination of predictor variables (features). The relationship between predictors and response is assumed to be linear.</p></li>
+<li><p><strong>Generalized Linear Regression</strong>: GLM generalize the concept above further. In GLM, we predict the expected value of a response variable using a linear combination of predictors. However, the response variable is not assumed to be normally distributed. Instead, the response variable can have any distribution from the exponential family of distributions. The link function is used to connect the linear combination of predictors to the expected value of the response variable. In a more easy to understand context, GLM allow the linear model to be related to the response variable via a link function. Additionally, GLMs account for the variance structure of the response variable, which can vary based on its predicted value.</p></li>
+</ul>
+</section>
+<section id="what-is-glm" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-glm">What is GLM?</h2>
+<p>A GLM consists of 3 components:</p>
+<ul>
+<li><p><strong>Random Component</strong>: The response variable Y is assumed to follow a distribution from the exponential family of distributions. The distribution is characterized by a mean and a variance.</p></li>
+<li><p><strong>Systematic Component</strong>: The systematic component of a GLM is a linear combination of the predictor variables. The linear combination is related to the expected value of the response variable through a link function.</p></li>
+<li><p><strong>Link Function</strong>: The link function is a function that relates the expected value of the response variable to the linear combination of predictors. The link function is used to model the relationship between the response variable and the linear combination of predictors.</p></li>
+</ul>
+<section id="link-function" class="level3">
+<h3 class="anchored" data-anchor-id="link-function">Link Function</h3>
+<p>The link function connects the linear predictor (a combination of predictors) to the response variable. Common link functions include:</p>
+<ul>
+<li><p><strong>Identity Link</strong>: The identity link function is used for response variables that follow a normal distribution. The identity link function is simply the linear predictor itself.</p></li>
+<li><p><strong>Logit Link</strong>: The logit link function is used for response variables that follow a binomial distribution. The logit link function is the log of the odds of the response variable being in a particular category. Suitable for binary responses (e.g., yes/no, default/non-default, success/failure) in logistic regression.</p></li>
+<li><p><strong>Log Link</strong>: The log link function is used for response variables that follow a Poisson distribution. The log link function is the natural logarithm of the expected value of the response variable. Useful for count data (e.g.&nbsp;number of events) in Poisson regression.</p></li>
+<li><p><strong>Inverse Link</strong>: The inverse link function is used for response variables that follow a gamma distribution. The inverse link function is the reciprocal of the expected value of the response variable. Suitable for continuous positive responses in gamma regression.</p></li>
+</ul>
+</section>
+<section id="variance-structure" class="level3">
+<h3 class="anchored" data-anchor-id="variance-structure">Variance Structure</h3>
+<p>In addition to the link function, GLMs also account for the variance structure of the response variable. The variance structure can vary based on the predicted value of the response variable. For example, the variance of the response variable may increase as the predicted value increases. This is known as heteroscedasticity. GLMs can account for this by using a variance function that depends on the predicted value of the response variable. For instance, if the response vairable is always positive (e.g., counts, proportions), constant changes in predictors may lead to geometrically varying output changes (exponential growth or decay). In this case, the variance of the response variable is proportional to the square of the mean.</p>
+</section>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p>GLMs find applications in various fields:</p>
+<ul>
+<li><p><strong>Logistic Regression</strong>: Modelling binary outcomes (e.g., success/failure, default/non-default, yes/no).</p></li>
+<li><p><strong>Poisson Regression</strong>: Modelling count data (e.g., number of events).</p></li>
+<li><p><strong>Gamma Regression</strong>: Modelling continuous positive outcomes (e.g., insurance claims, income).</p></li>
+<li><p><strong>Ordinal Regression</strong>: Modelling ordered categorical outcomes (e.g., low/medium/high).</p></li>
+<li><p><strong>Negative Binomial Regression</strong>: Modelling overdispersed count data. Overdispereed means the variance is larger than the mean. The example of overdispersed count data is the number of accidents in different regions.</p></li>
+<li><p><strong>Tweedie Regression</strong>: Modelling continuous positive outcomes with a variance that is a power of the mean. The example of Tweedie regression is the insurance claims data.</p></li>
+</ul>
+<section id="estimation" class="level3">
+<h3 class="anchored" data-anchor-id="estimation">Estimation</h3>
+<p>The parameters of a GLM are estimated using maximum likelihood estimation. The method involves finding the parameter values that maximize the likelihood function, which is a measure of how well the model explains the observed data. The process of estimating the parameters of a GLM is similar to that of estimating the parameters of a linear regression model, but it involves the use of an iterative algorithm to find the maximum likelihood estimates.</p>
+<p>The steps of estimation as follow:</p>
+<ol type="1">
+<li><p>Write the probability density function (pdf) or probability mass function (pmf) of the response variable in terms of the mean and variance.</p></li>
+<li><p>Write the log-likelihood function, which is the natural logarithm of the likelihood function.</p></li>
+<li><p>Maximize the log-likelihood function with respect to the parameters of the model using an iterative algorithm.</p></li>
+<li><p>The iterative algorithm is typically the Newton-Raphson method or the Fisher scoring method.</p></li>
+</ol>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In summary, GLM is a powerful extension of ordinary linear regression. It allows us to handle a broader range of response variables and incorporates additional flexibility. GLMs are widely used in practice and have many applications in various fields. They are a valuable tool for modelling a wide range of response variables and can be used to make predictions and inferences about the relationships between predictors and response variables.</p>
 
 
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{tan2024,
   author = {Tan, Joan},
-  title = {`With` Vs `Within` Evaluate Expression in an Environment},
-  date = {2024-01-16},
-  url = {https://joantan.org/R/2024-01-16-with-within/},
+  title = {Generalized Linear Model},
+  date = {2024-03-09},
+  url = {https://joantan.org/Statistics/2024-03-09-GLM/},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-tan2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-Tan, Joan. 2024. <span>“`With` Vs `Within` Evaluate Expression in an
-Environment.”</span> January 16, 2024. <a href="https://joantan.org/R/2024-01-16-with-within/">https://joantan.org/R/2024-01-16-with-within/</a>.
+Tan, Joan. 2024. <span>“Generalized Linear Model.”</span> March 9, 2024.
+<a href="https://joantan.org/Statistics/2024-03-09-GLM/">https://joantan.org/Statistics/2024-03-09-GLM/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

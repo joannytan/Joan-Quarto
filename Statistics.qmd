@@ -3,7 +3,7 @@ title: "Statistics"
 subtitle: "“Most people use statistics like a drunk man uses a lamppost; more for support than illumination”
 ― Andrew Lang"
 listing:
-  contents: posts
+  contents: Sposts
   sort: "date desc"
   type: default
   image-align: right
