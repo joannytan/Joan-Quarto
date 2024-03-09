@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://joantan.org/R.html</loc>
-    <lastmod>2024-03-09T06:55:02.991Z</lastmod>
+    <lastmod>2024-03-09T07:33:37.715Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Resources.html</loc>
@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://joantan.org/Statistics.html</loc>
-    <lastmod>2024-03-09T07:22:29.213Z</lastmod>
+    <lastmod>2024-03-09T23:27:17.280Z</lastmod>
   </url>
   <url>
     <loc>https://joantan.org/Python.html</loc>
@@ -43,5 +43,9 @@
   <url>
     <loc>https://joantan.org/Sposts/2024-03-09-GLM/index.html</loc>
     <lastmod>2024-03-09T07:22:28.871Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joantan.org/Sposts/2024-03-10-hat-matrix/index.html</loc>
+    <lastmod>2024-03-09T23:27:16.882Z</lastmod>
   </url>
 </urlset>

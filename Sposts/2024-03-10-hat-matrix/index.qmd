@@ -1,0 +1,131 @@
+---
+title: "Hat Matrix in Linear Regression"
+description: "A concept in linear regression"
+author:
+  - name: Joan Tan
+    url: https://joantan.org/
+    orcid: 0000-0001-6374-1568
+    affiliation: Department of Econometrics and Business Statistics, Monash University/ NAB 
+    affiliation-url: https://www.monash.edu/business/econometrics-and-business-statistics/
+date: 03-10-2024
+categories: [linear] # self-defined categories
+citation: 
+  url: https://joantan.org/Statistics/2024-03-10-hat-matrix/ 
+image: hat.jpeg
+draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+---
+
+## Hat matrix
+
+The hat matrix is a key concept in linear regression and is used to understand the influence of the observations on the estimated coefficients.
+
+
+**What it does:**
+
+- The hat matrix is a square matrix with the same number of rows and columns as the number of data points in your regression analysis.
+
+- Each element (i,j) of the hat matrix represents the influence of the jth data point on the ith fitted value.
+
+
+**Intuition behind the hat matrix:**
+
+Imagine the fitted value for a particular data point (i) as a weighted average of all the actual data points (j). The weights in this average are determined by the hat matrix. A higher value in the (i,j) element of the hat matrix signifies that the jth data point has a greater influence on the fitted value for the ith data point.
+
+**How to calculate:**
+
+Hat matrix is also known as the projection matrix. The hat matrix is defined as:
+
+$$
+H = X(X'X)^{-1}X'
+$$
+
+where $X$ is the design matrix. The hat matrix is used to calculate the predicted values of the dependent variable, the residuals, and the leverage of the observations. The diagonal elements of the hat matrix are the leverage values. The hat matrix is also used to calculate the standard errors of the estimated coefficients. In another words, hat matrix is used to understand the influence of the observations on the estimated coefficients.
+
+```{r}
+# R code to calculate the hat matrix
+X <- matrix(rnorm(100), ncol = 2)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+```
+
+**Why it's important:**
+
+The hat matrix helps identify outliers or influential points in your data.
+Data points with high leverage (diagonal elements of the hat matrix close to 1) can significantly affect the fitted regression line.
+Examining the hat matrix can alert you to potential issues with your model and the need for further investigation.
+
+
+**Things to remember:**
+
+The hat matrix is a mathematical concept and not directly available in all regression software outputs. However, some software packages may provide diagnostic tools related to leverage (diagonal elements of the hat matrix) to help you identify influential points.
+
+By understanding the hat matrix, you gain valuable insights into the influence of individual data points on your regression model. This knowledge can help you refine your model and ensure its robustness.
+
+Now, let's dive in further on what it means by `leverage` (the diagonal elements) and how to interpret the hat matrix.
+
+## Diagonal/leverage in hat matrix
+
+The diagonal element (i,i) of the hat matrix in linear regression represents the leverage of the i-th data point.  The sum of all the diagonal elements of the hat matrix is always equal to the number of predictor variables (p) in the model (plus 1 if you include an intercept term). While some software may not directly provide the hat matrix, they might offer diagnostics based on leverage (like Cook's distance) to help you identify influential points. Here's a deeper dive into its meaning and significance:
+
+**Definition of leverage**
+
+Leverage refers to the influence a single data point has on the fitted regression line. A diagonal element (i,i) of the hat matrix, denoted by $h_{ii}$, captures this influence for the i-th data point. The value of h_ii ranges from 0 to 1.
+
+**Interpretation of h_ii**
+
+$h_{ii}$ close to 1 (high leverage): This indicates the i-th data point has a strong influence on the fitted line. Even small changes in this point's value can significantly affect the slope and intercept of the regression line.
+
+
+$h_{ii}$ close to 0 (low leverage): This suggests the i-th data point has minimal influence on the regression line. Changes in its value won't considerably alter the fitted line.
+
+**Why it Matters**
+
+Identifying high leverage points is crucial because:
+
+- They can mask the true relationship between the predictor and response variables.
+- They can lead to unreliable estimates of the regression coefficients.
+
+If you identify data points with high leverage ($h_{ii}$ close to 1), it's important to:
+
+- Investigate these points to see if they are valid or represent errors.
+
+- Consider removing them from the analysis if they are truly outliers or errors, but be cautious about removing data without justification.
+
+- Explore alternative robust regression methods that are less sensitive to outliers if high leverage points are unavoidable.
+
+
+By understanding the diagonal elements of the hat matrix, you can gain valuable insights into the influence of individual data points on your regression model. This knowledge can help you assess the reliability of your model and make informed decisions about potential outliers.
+
+Next, if the diagonal means the leverage, what does the off-diagonal elements mean?
+
+## Off-diagonal elements in hat matrix
+
+The off-diagonal elements (i,j) of the hat matrix (where $i \ne j$) in linear regression don't directly represent the influence of one data point on another. Unlike the diagonal elements (leverage), they don't have a straightforward interpretation in terms of individual data point influence.
+
+Here's a breakdown of what they represent:
+
+Focus on Fitted Values, Not Individual Points. The off-diagonal elements capture the relationship between the fitted values of two different data points (i and j).
+A non-zero value in the (i,j) element indicates that the fitted value for the i-th data point is partially determined by the j-th data point, and vice versa. The magnitude of the value reflects the strength of this connection.
+
+**Positive vs. Negative Values:**
+
+A positive off-diagonal element suggests that the fitted values for points i and j tend to move in the same direction. If one point's fitted value increases, the other's also tends to increase (and vice versa).
+
+A negative off-diagonal element indicates an opposing trend. An increase in one point's fitted value is likely associated with a decrease in the other's fitted value (and vice versa).
+
+**Impact on Overall Model Fit:**
+
+While not directly reflecting individual point influence, off-diagonal elements can provide insights into the overall correlation structure of your data.
+If there are strong positive or negative relationships between fitted values captured by off-diagonal elements, it might suggest multicollinearity among predictor variables. This can lead to issues with model stability and interpretation of coefficients.
+
+**In Summary:**
+
+- Off-diagonal elements of the hat matrix are less intuitive than diagonal elements (leverage).
+
+- They reflect the interdependence between fitted values of different data points.
+
+- The sign (positive or negative) indicates the direction of this relationship.
+Analyzing these elements can help identify potential multicollinearity issues in your data.
+
+## Conclusion
+
+The main focus of the hat matrix is to understand how much each data point influences the fitted values (predicted values) of the model. The diagonal elements provide insights into individual point influence (leverage), while the off-diagonal elements offer a glimpse into the relationships between fitted values. By analyzing both, you can gain valuable knowledge about the overall robustness and potential issues with your regression model.
